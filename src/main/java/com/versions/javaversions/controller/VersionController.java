@@ -5,15 +5,19 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class VersionController {
 
     static final Map<String,String> map11 = Map.of("Running Java File with single command","Run Java ",
@@ -80,39 +84,18 @@ public class VersionController {
 
 
     @GetMapping(path="versionchanges/{versionEarlier}/{versionLater}")
-    public String versionDifference(@PathVariable int versionEarlier, @PathVariable int versionLater, Model model) {
-
-//		  Map<String, String> map = new LinkedHashMap<>();
-        //	  Map<String, String> tempMap;
-
-        //  for(int i=versionEarlier; i<versionLater; i++) {
-        //tempMap = mapOfMaps.get(i);
-        //tempMap.forEach((key,  value)->map.merge(key, value, (val1,val2)->val2));
-        //}
+    public ResponseEntity<Map<Integer, Map<String,String>>> versionDifference(@PathVariable int versionEarlier, @PathVariable int versionLater) {
 
         Map<Integer, Map<String, String>> map = new LinkedHashMap<>();
-        Map<String, String> tempMap;
 
-        for(int i=versionEarlier; i<versionLater; i++) {
-            map.put(i+1, mapOfMaps.get(i));
-        }
+       map = IntStream.range(versionEarlier,versionLater+1)
+                .mapToObj(i->i).collect(Collectors.toMap(e->e,e->mapOfMaps.get(e)));
 
-        model.addAttribute("map", map);
-
-        return "ver";
+       return  new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @GetMapping({"/","/home"})
     public String home(Model model) {
-
-//		  Map<String, String> map = new LinkedHashMap<>();
-        //	  Map<String, String> tempMap;
-
-        //  for(int i=versionEarlier; i<versionLater; i++) {
-        //tempMap = mapOfMaps.get(i);
-        //tempMap.forEach((key,  value)->map.merge(key, value, (val1,val2)->val2));
-        //}
-
 
         model.addAttribute("versions", new ArrayList<>(mapOfMaps.keySet()));
 
