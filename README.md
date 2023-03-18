@@ -3,7 +3,7 @@
 
 About the project : 
 
-        This project is to create APIs which can be used to find new features between two java versions.
+        This project is to show differences between two java versions.
 
 Built with : 
 
