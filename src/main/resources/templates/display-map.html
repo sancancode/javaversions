@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Display Map</title>
+</head>
+<body>
+<h1>Map Entries</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Key</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over the map entries and display the key and value -->
+    <tr th:each="entry : ${map}">
+        <td th:text="${entry.key}">Version</td>
+        <td th:text="${entry.value}">Changes</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
