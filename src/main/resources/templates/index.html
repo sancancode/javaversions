@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Thymeleaf GET Example</title>
 </head>
 <body>
+<div sec:authorize="isAuthenticated()">
+    <span>Welcome, <span th:text="${#authentication.name}">User</span>!</span>
+    <form th:action="@{/logout}" method="post" style="display: inline;">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
 <h1>Thymeleaf GET Example</h1>
 
 <form th:action="@{/versionchanges}" method="get">
     <label for="versionEarlier">VersionEarlier:</label>
-    <input type="number" id="versionEarlier" name="versionEarlier" required />
+    <input type="number" id="versionEarlier" name="versionEarlier"  min="4"  required />
     <label for="versionLater">VersionLater:</label>
-    <input type="number" id="versionLater" name="versionLater" required />
+    <input type="number" id="versionLater" name="versionLater"  min="4"   max="17"  required />
     <button type="submit">Submit Parameters</button>
 </form>
 

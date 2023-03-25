@@ -1,25 +1,117 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Display Map</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Map Entries</h1>-->
+
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Version</th>-->
+<!--        <th>Changes</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    &lt;!&ndash; Iterate over the map entries and display the key and value &ndash;&gt;-->
+<!--    <tr th:each="entry : ${map}">-->
+<!--        <td th:text="${entry.key}">Version</td>-->
+<!--        <td th:text="${entry.value}">Changes</td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Java Version Features</title>-->
+<!--    <style>-->
+<!--        table {-->
+<!--            width: 100%;-->
+<!--            border-collapse: collapse;-->
+<!--        }-->
+<!--        table, th, td {-->
+<!--            border: 1px solid black;-->
+<!--        }-->
+<!--        th, td {-->
+<!--            padding: 15px;-->
+<!--            text-align: left;-->
+<!--        }-->
+<!--        th {-->
+<!--            background-color: #f2f2f2;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Java Version Features</h1>-->
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Feature</th>-->
+<!--        <th>Detail</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="feature : ${map}">-->
+<!--        <td th:text="${feature.key}">Feature</td>-->
+<!--        <td th:text="${feature.value}">Detail</td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Display Map</title>
+    <meta charset="UTF-8">
+    <title>Java Version Features</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-<h1>Map Entries</h1>
-
-<table>
-    <thead>
-    <tr>
-        <th>Version</th>
-        <th>Changes</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Iterate over the map entries and display the key and value -->
-    <tr th:each="entry : ${map}">
-        <td th:text="${entry.key}">Version</td>
-        <td th:text="${entry.value}">Changes</td>
-    </tr>
-    </tbody>
-</table>
+<div sec:authorize="isAuthenticated()">
+    <span>Welcome, <span th:text="${#authentication.name}">User</span>!</span>
+    <form th:action="@{/logout}" method="post" style="display: inline;">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+<h1>Java Version Features</h1>
+<div th:each="version : ${map}">
+    <h2 th:text="${version.key}+1">Java Version</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Feature</th>
+            <th>Detail</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="feature : ${version.value.entrySet()}">
+            <td th:text="${feature.key}">Feature</td>
+            <td th:text="${feature.value}">Detail</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

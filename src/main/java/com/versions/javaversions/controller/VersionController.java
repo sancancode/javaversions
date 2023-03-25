@@ -191,7 +191,7 @@ public class VersionController {
                                                                               Model model) {
 
         Map<Integer, Map<String, String>> map = new LinkedHashMap<>();
-        map = IntStream.range(versionEarlier,versionLater+1)
+        map = IntStream.range(versionEarlier,versionLater)
                 .mapToObj(i->i).collect(Collectors.toMap(e->e,e->mapOfMaps.get(e)));
         model.addAttribute("map", map);
         return  "display-map";
