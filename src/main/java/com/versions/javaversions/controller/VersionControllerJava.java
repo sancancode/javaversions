@@ -1,21 +1,15 @@
 package com.versions.javaversions.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class VersionController {
+public class VersionControllerJava {
 
 
 
@@ -185,20 +179,106 @@ public class VersionController {
         mapOfMaps.put(16, map16);
     }
 
-    @GetMapping(path="versionchanges")
+    private static final Map<String, Map<String, String>> RELEASE_HISTORY = new HashMap<>();
+
+    static {
+        // Winter '07
+        Map<String, String> winter07 = new HashMap<>();
+        winter07.put("Apex Code", "Introduced as part of the Winter '07 release.");
+        RELEASE_HISTORY.put("Winter '07", winter07);
+
+        // Summer '08
+        Map<String, String> summer08 = new HashMap<>();
+        summer08.put("Triggers", "Introduced support for triggers.");
+        summer08.put("Workflows", "Introduced support for workflows.");
+        summer08.put("Email Templates", "Introduced support for email templates.");
+        RELEASE_HISTORY.put("Summer '08", summer08);
+
+        // Summer '09
+        Map<String, String> summer09 = new HashMap<>();
+        summer09.put("Batch Processing", "Introduced support for batch processing.");
+        summer09.put("Web Services", "Introduced the ability to call external web services.");
+        RELEASE_HISTORY.put("Summer '09", summer09);
+
+        // Spring '10
+        Map<String, String> spring10 = new HashMap<>();
+        spring10.put("Sharing Rules", "Introduced support for sharing rules.");
+        spring10.put("Dynamic SOQL", "Introduced support for dynamic SOQL.");
+        spring10.put("Scheduled Apex", "Introduced the ability to schedule Apex code to run at specific times.");
+        RELEASE_HISTORY.put("Spring '10", spring10);
+
+        // Winter '11
+        Map<String, String> winter11 = new HashMap<>();
+        winter11.put("Visualforce Pages", "Introduced support for Visualforce pages.");
+        winter11.put("JavaScript Remoting", "Introduced the ability to call Apex code from JavaScript.");
+        winter11.put("Debugging and Testing", "Introduced improvements to debugging and testing tools.");
+        RELEASE_HISTORY.put("Winter '11", winter11);
+
+        // Summer '12
+        Map<String, String> summer12 = new HashMap<>();
+        summer12.put("Apex REST", "Introduced support for Apex REST services.");
+        summer12.put("Governor Limits", "Introduced improved governor limits.");
+        summer12.put("External Data Sources", "Introduced the ability to use Apex to access external data sources.");
+        RELEASE_HISTORY.put("Summer '12", summer12);
+
+        // Winter '13
+        Map<String, String> winter13 = new HashMap<>();
+        winter13.put("Chatter", "Introduced support for Chatter.");
+        winter13.put("Outbound Messaging", "Introduced the ability to send outbound messages to external systems.");
+        winter13.put("Exception Handling and Debugging", "Introduced improvements to exception handling and debugging tools.");
+        RELEASE_HISTORY.put("Winter '13", winter13);
+
+        // Spring '14
+        Map<String, String> spring14 = new HashMap<>();
+        spring14.put("Visualforce Components", "Introduced support for Visualforce components.");
+        spring14.put("Debugger and Test Runner", "Introduced improvements to the Apex debugger and test runner.");
+        spring14.put("Email", "Introduced the ability to use Apex to send email messages.");
+        RELEASE_HISTORY.put("Spring '14", spring14);
+
+        // Spring '15
+        Map<String, String> spring15 = new HashMap<>();
+        spring15.put("Lightning Component Framework", "Introduced support for the Lightning Component Framework.");
+        spring15.put("Code Editor and Debugger", "Introduced improvements to the Apex code editor and debugger.");
+        spring15.put("Email Templates", "Introduced the ability to use Apex to create custom email templates.");
+        RELEASE_HISTORY.put("Spring '15", spring15);
+    }
+
+    @GetMapping(path="versionchangesjava")
     public String versionDifference(@RequestParam("versionEarlier") int versionEarlier,
                                                                               @RequestParam("versionLater") int versionLater,
                                                                               Model model) {
-
         Map<Integer, Map<String, String>> map = new LinkedHashMap<>();
         map = IntStream.range(versionEarlier,versionLater)
                 .mapToObj(i->i).collect(Collectors.toMap(e->e,e->mapOfMaps.get(e)));
         model.addAttribute("map", map);
         return  "display-map";
     }
+
+    @GetMapping(path = "versionchangesapex")
+    public String versionDifferenceApex ( @RequestParam("versionEarlier") int versionEarlier,
+                                      @RequestParam("versionLater") int versionLater,
+                                      Model model){
+        Map<Integer, Map<String, String>> map = new LinkedHashMap<>();
+        map = IntStream.range(versionEarlier, versionLater)
+                .mapToObj(i -> i).collect(Collectors.toMap(e -> e, e -> RELEASE_HISTORY.get(e)));
+        model.addAttribute("map", map);
+        return "display-map";
+    }
+
     @GetMapping({"/","/home"})
     public String home(Model model) {
-        model.addAttribute("versions", new ArrayList<>(mapOfMaps.keySet()));
+        List<String> apexVersions = new ArrayList<>();
+        apexVersions.add("Winter '07");
+        apexVersions.add("Summer '08");
+        apexVersions.add("Summer '09");
+        apexVersions.add("Spring '10");
+        apexVersions.add("Winter '11");
+        apexVersions.add("Summer '12");
+        apexVersions.add("Winter '13");
+        apexVersions.add("Spring '14");
+        apexVersions.add("Spring '15");
+        model.addAttribute("apexVersions", apexVersions);
+        model.addAttribute("javaVersions", new ArrayList<>(mapOfMaps.keySet()));
         return "index";
     }
 }

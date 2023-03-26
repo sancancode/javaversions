@@ -11,14 +11,33 @@
         <input type="submit" value="Logout" />
     </form>
 </div>
-<h1>Thymeleaf GET Example</h1>
+<h1>Java Versions Features</h1>
+<h2>Select Java version below you would like to see the upgraded features for</h2>
 
 <form th:action="@{/versionchanges}" method="get">
-    <label for="versionEarlier">VersionEarlier:</label>
-    <input type="number" id="versionEarlier" name="versionEarlier"  min="4"  required />
-    <label for="versionLater">VersionLater:</label>
-    <input type="number" id="versionLater" name="versionLater"  min="4"   max="17"  required />
-    <button type="submit">Submit Parameters</button>
+    <label for="versionEarlierJava">Earlier Version:</label>
+    <select id="versionEarlierJava" name="versionEarlierJava">
+        <option th:each="versionEarlierJava : ${javaVersions}" th:value="${versionEarlierJava}" th:text="${versionEarlierJava}"></option>
+    </select>
+    <select id="versionLaterJava" name="versionLaterJava">
+        <option th:each="versionLaterJava : ${javaVersions}" th:value="${versionLaterJava}" th:text="${versionLaterJava}"></option>
+    </select>
+    <button type="submit">Submit</button>
+</form>
+
+
+<h1>Apex Versions Features</h1>
+<h2>Select Apex version below you would like to see the upgraded features for</h2>
+
+<form th:action="@{/versionchangesapex}" method="get">
+    <label for="versionEarlierApex">Earlier Version:</label>
+    <select id="versionEarlierApex" name="versionEarlier">
+        <option th:each="versionEarlierApex : ${apexVersions}" th:value="${versionEarlierApex}" th:text="${versionEarlierApex}"></option>
+    </select>
+    <select id="versionLaterApex" name="versionLater">
+        <option th:each="versionLaterApex : ${apexVersions}" th:value="${versionLaterApex}" th:text="${versionLaterApex}"></option>
+    </select>
+    <button type="submit">Submit</button>
 </form>
 
 </body>
