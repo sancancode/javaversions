@@ -1,0 +1,18 @@
+service: myservice
+provider:
+  name: aws
+  runtime: java11
+  stage: dev
+  region: us-east-1
+  memorySize: 1024
+  timeout: 15
+
+package:
+  artifact: target/javaversions-0.0.1-SNAPSHOT.jar
+
+functions:
+  app:
+    handler: com.versions.javaversions.handler.LambdaHandler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
