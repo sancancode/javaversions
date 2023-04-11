@@ -14,13 +14,13 @@
 <h1>Java Versions Features</h1>
 <h2>Select Java version below you would like to see the upgraded features for</h2>
 
-<form th:action="@{/versionchanges}" method="get">
+<form th:action="@{/versionchangesjava}" method="get">
     <label for="versionEarlierJava">Earlier Version:</label>
-    <select id="versionEarlierJava" name="versionEarlierJava">
+    <select id="versionEarlierJava" name="versionEarlier">
         <option th:each="versionEarlierJava : ${javaVersions}" th:value="${versionEarlierJava}" th:text="${versionEarlierJava}"></option>
     </select>
-    <select id="versionLaterJava" name="versionLaterJava">
-        <option th:each="versionLaterJava : ${javaVersions}" th:value="${versionLaterJava}" th:text="${versionLaterJava}"></option>
+    <select id="versionLaterJava" name="versionLater">
+        <option th:each="versionLaterJava : ${javaVersions}" th:value="${versionLaterJava+1}" th:text="${versionLaterJava+1}"></option>
     </select>
     <button type="submit">Submit</button>
 </form>
@@ -35,7 +35,7 @@
         <option th:each="versionEarlierApex : ${apexVersions}" th:value="${versionEarlierApex}" th:text="${versionEarlierApex}"></option>
     </select>
     <select id="versionLaterApex" name="versionLater">
-        <option th:each="versionLaterApex : ${apexVersions}" th:value="${versionLaterApex}" th:text="${versionLaterApex}"></option>
+        <option th:each="versionLaterApex : ${apexVersions}" th:value="${versionLaterApex+1}" th:text="${versionLaterApex+1}"></option>
     </select>
     <button type="submit">Submit</button>
 </form>
