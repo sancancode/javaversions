@@ -252,7 +252,7 @@ public class VersionControllerJava {
         map = IntStream.range(versionEarlier,versionLater)
                 .mapToObj(i->i).collect(Collectors.toMap(e->e,e->mapOfMaps.get(e)));
         model.addAttribute("map", map);
-        return  "display-map";
+        return  "display-map.html";
     }
 
     @GetMapping(path = "versionchangesapex")
@@ -263,7 +263,7 @@ public class VersionControllerJava {
         map = IntStream.range(versionEarlier, versionLater)
                 .mapToObj(i -> i).collect(Collectors.toMap(e -> e, e -> RELEASE_HISTORY.get(e)));
         model.addAttribute("map", map);
-        return "display-map";
+        return "display-map.html";
     }
 
     @GetMapping({"/","/home"})
@@ -303,6 +303,6 @@ public class VersionControllerJava {
         model.addAttribute("seasonsMap", seasonsMap);
         model.addAttribute("apexVersions", apexVersions);
         model.addAttribute("javaVersions", new ArrayList<>(mapOfMaps.keySet()));
-        return "index";
+        return "index.html";
     }
 }
