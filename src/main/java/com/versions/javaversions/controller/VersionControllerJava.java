@@ -179,68 +179,69 @@ public class VersionControllerJava {
         mapOfMaps.put(16, map16);
     }
 
-    private static final Map<String, Map<String, String>> RELEASE_HISTORY = new HashMap<>();
+    private static final Map<Integer, Map<String, String>> RELEASE_HISTORY = new HashMap<>();
 
     static {
         // Winter '07
         Map<String, String> winter07 = new HashMap<>();
         winter07.put("Apex Code", "Introduced as part of the Winter '07 release.");
-        RELEASE_HISTORY.put("Winter '07", winter07);
+        RELEASE_HISTORY.put(7, winter07);
 
         // Summer '08
         Map<String, String> summer08 = new HashMap<>();
         summer08.put("Triggers", "Introduced support for triggers.");
         summer08.put("Workflows", "Introduced support for workflows.");
         summer08.put("Email Templates", "Introduced support for email templates.");
-        RELEASE_HISTORY.put("Summer '08", summer08);
+        RELEASE_HISTORY.put(8, summer08);
 
         // Summer '09
         Map<String, String> summer09 = new HashMap<>();
         summer09.put("Batch Processing", "Introduced support for batch processing.");
         summer09.put("Web Services", "Introduced the ability to call external web services.");
-        RELEASE_HISTORY.put("Summer '09", summer09);
+        RELEASE_HISTORY.put(9, summer09);
 
         // Spring '10
         Map<String, String> spring10 = new HashMap<>();
         spring10.put("Sharing Rules", "Introduced support for sharing rules.");
         spring10.put("Dynamic SOQL", "Introduced support for dynamic SOQL.");
         spring10.put("Scheduled Apex", "Introduced the ability to schedule Apex code to run at specific times.");
-        RELEASE_HISTORY.put("Spring '10", spring10);
+        RELEASE_HISTORY.put(10, spring10);
 
         // Winter '11
         Map<String, String> winter11 = new HashMap<>();
         winter11.put("Visualforce Pages", "Introduced support for Visualforce pages.");
         winter11.put("JavaScript Remoting", "Introduced the ability to call Apex code from JavaScript.");
         winter11.put("Debugging and Testing", "Introduced improvements to debugging and testing tools.");
-        RELEASE_HISTORY.put("Winter '11", winter11);
+        RELEASE_HISTORY.put(11, winter11);
 
         // Summer '12
         Map<String, String> summer12 = new HashMap<>();
         summer12.put("Apex REST", "Introduced support for Apex REST services.");
         summer12.put("Governor Limits", "Introduced improved governor limits.");
         summer12.put("External Data Sources", "Introduced the ability to use Apex to access external data sources.");
-        RELEASE_HISTORY.put("Summer '12", summer12);
+        RELEASE_HISTORY.put(12, summer12);
 
         // Winter '13
         Map<String, String> winter13 = new HashMap<>();
         winter13.put("Chatter", "Introduced support for Chatter.");
         winter13.put("Outbound Messaging", "Introduced the ability to send outbound messages to external systems.");
         winter13.put("Exception Handling and Debugging", "Introduced improvements to exception handling and debugging tools.");
-        RELEASE_HISTORY.put("Winter '13", winter13);
+        RELEASE_HISTORY.put(13, winter13);
 
         // Spring '14
         Map<String, String> spring14 = new HashMap<>();
         spring14.put("Visualforce Components", "Introduced support for Visualforce components.");
         spring14.put("Debugger and Test Runner", "Introduced improvements to the Apex debugger and test runner.");
         spring14.put("Email", "Introduced the ability to use Apex to send email messages.");
-        RELEASE_HISTORY.put("Spring '14", spring14);
+        RELEASE_HISTORY.put(14, spring14);
 
         // Spring '15
         Map<String, String> spring15 = new HashMap<>();
         spring15.put("Lightning Component Framework", "Introduced support for the Lightning Component Framework.");
         spring15.put("Code Editor and Debugger", "Introduced improvements to the Apex code editor and debugger.");
         spring15.put("Email Templates", "Introduced the ability to use Apex to create custom email templates.");
-        RELEASE_HISTORY.put("Spring '15", spring15);
+        RELEASE_HISTORY.put(15, spring15);
+
     }
 
     @GetMapping(path="versionchangesjava")
@@ -267,16 +268,39 @@ public class VersionControllerJava {
 
     @GetMapping({"/","/home"})
     public String home(Model model) {
-        List<String> apexVersions = new ArrayList<>();
-        apexVersions.add("Winter '07");
-        apexVersions.add("Summer '08");
-        apexVersions.add("Summer '09");
-        apexVersions.add("Spring '10");
-        apexVersions.add("Winter '11");
-        apexVersions.add("Summer '12");
-        apexVersions.add("Winter '13");
-        apexVersions.add("Spring '14");
-        apexVersions.add("Spring '15");
+
+        List<Integer> apexVersions = new ArrayList<>();
+        apexVersions.add(7);
+        apexVersions.add(8);
+        apexVersions.add(9);
+        apexVersions.add(10);
+        apexVersions.add(11);
+        apexVersions.add(12);
+        apexVersions.add(13);
+        apexVersions.add(14);
+        apexVersions.add(15);
+
+
+//
+//        List<String> apexVersions = new ArrayList<>();
+//        apexVersions.add("Winter '07");
+//        apexVersions.add("Summer '08");
+//        apexVersions.add("Summer '09");
+//        apexVersions.add("Spring '10");
+//        apexVersions.add("Winter '11");
+//        apexVersions.add("Summer '12");
+//        apexVersions.add("Winter '13");
+//        apexVersions.add("Spring '14");
+//        apexVersions.add("Spring '15");
+
+
+        Map<Integer, String> seasonsMap = new HashMap<>();
+        seasonsMap.put(4, "Summer");
+        seasonsMap.put(5, "Winter");
+        seasonsMap.put(6, "Fall");
+        // Add more mappings as needed
+
+        model.addAttribute("seasonsMap", seasonsMap);
         model.addAttribute("apexVersions", apexVersions);
         model.addAttribute("javaVersions", new ArrayList<>(mapOfMaps.keySet()));
         return "index";
