@@ -280,20 +280,6 @@ public class VersionControllerJava {
         apexVersions.add(14);
         apexVersions.add(15);
 
-
-//
-//        List<String> apexVersions = new ArrayList<>();
-//        apexVersions.add("Winter '07");
-//        apexVersions.add("Summer '08");
-//        apexVersions.add("Summer '09");
-//        apexVersions.add("Spring '10");
-//        apexVersions.add("Winter '11");
-//        apexVersions.add("Summer '12");
-//        apexVersions.add("Winter '13");
-//        apexVersions.add("Spring '14");
-//        apexVersions.add("Spring '15");
-
-
         Map<Integer, String> seasonsMap = new HashMap<>();
         seasonsMap.put(4, "Summer");
         seasonsMap.put(5, "Winter");
