@@ -5,16 +5,17 @@
     <title>Learn Software Versions</title>
 </head>
 <body>
-<div sec:authorize="isAuthenticated()">
-    <span>Welcome, <span th:text="${#authentication.name}">User</span>!</span>
-    <form th:action="@{/logout}" method="post" style="display: inline;">
-        <input type="submit" value="Logout" />
-    </form>
-</div>
+<!--<div sec:authorize="isAuthenticated()">-->
+<!--    <span>Welcome, <span th:text="${#authentication.name}">User</span>!</span>-->
+<!--    <form th:action="@{/logout}" method="post" style="display: inline;">-->
+<!--        <input type="submit" value="Logout" />-->
+<!--    </form>-->
+<!--</div>-->
 <h1>Java Versions Features</h1>
 <h2>Select Java version below you would like to see the upgraded features for</h2>
 
 <form th:action="@{/versionchangesjava}" method="get">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> <!-- CSRF token -->
     <label for="versionEarlierJava">Earlier Version:</label>
     <select id="versionEarlierJava" name="versionEarlier">
         <option th:each="versionEarlierJava : ${javaVersions}" th:value="${versionEarlierJava}" th:text="${versionEarlierJava}"></option>
@@ -30,6 +31,7 @@
 <h2>Select Apex version below you would like to see the upgraded features for</h2>
 
 <form th:action="@{/versionchangesapex}" method="get">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> <!-- CSRF token -->
     <label for="versionEarlierApex">Earlier Version:</label>
     <select id="versionEarlierApex" name="versionEarlier">
         <option th:each="versionEarlierApex : ${apexVersions}" th:value="${versionEarlierApex}" th:text="${versionEarlierApex}"></option>
