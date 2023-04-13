@@ -8,7 +8,7 @@
 <div sec:authorize="isAuthenticated()">
     <span>Welcome, <span th:text="${#authentication.name}">User</span>!</span>
     <form th:action="@{/logout}" method="post" style="display: inline;">
-        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+<!--        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />-->
         <input type="submit" value="Logout" />
     </form>
 </div>
