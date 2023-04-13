@@ -25,9 +25,11 @@
 <div sec:authorize="isAuthenticated()">
     <span>Welcome, <span th:text="${#authentication.name}">User</span>!</span>
     <form th:action="@{/logout}" method="post" style="display: inline;">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
         <input type="submit" value="Logout" />
     </form>
 </div>
+
 <h1>Version Features</h1>
 <div th:each="version : ${map}">
     <h2 th:text="${version.key}+1">Java Version</h2>
