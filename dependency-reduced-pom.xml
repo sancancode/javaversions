@@ -35,7 +35,7 @@
                 </transformer>
                 <transformer />
                 <transformer>
-                  <mainClass>JavaversionsApplication.class</mainClass>
+                  <mainClass>Application.class</mainClass>
                 </transformer>
               </transformers>
             </configuration>
@@ -46,7 +46,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <mainClass>com.versions.javaversions.JavaversionsApplication</mainClass>
+          <mainClass>com.versions.javaversions.Application</mainClass>
         </configuration>
       </plugin>
       <plugin>
